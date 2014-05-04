@@ -1,0 +1,14 @@
+{
+  "name": "dawkins-biomorph",
+  "version": "0.0.1",
+  "authors": [
+    "Alexander-0x80 <alex.jce@gmail.com>"
+  ],
+  "description": "Dawkins biomorph implementation",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.11"
+  }
+}

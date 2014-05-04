@@ -1,0 +1,28 @@
+canvas {
+    width: 256px;
+    height: 256px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+button {
+    display:block;
+}
+
+input {
+    width: 30%;
+    display: none;
+}
+
+#main {
+    width: 100%;
+    text-align: center;
+}
+
+#main > * {
+    margin: 0 auto;
+}
+
+#siblings {
+    width: 800px;
+}
