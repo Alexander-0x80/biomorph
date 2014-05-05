@@ -5,10 +5,15 @@ define([
     
 function(Biomorph, Genes, handlers){
 
-    var hash = location.hash.substr(1) || Genes.array_to_string([80,7,5,60,60,4,65,1,8]);
-    var genes = new Genes.genes(Genes.string_to_array(hash));
+    var genes;
+    var default_genes = [80,2,2,60,35,4,60,1,8];
     var canvases = document.querySelectorAll("canvas");
     var button = document.querySelector("button");
+
+    function from_hash(){
+        if (location.hash.substr(1)) return Genes.string_to_array(location.hash.substr(1));
+        else return default_genes;
+    }
 
     function create_biomorph(cnv){
         var biomorph, mutated_genes;
@@ -25,17 +30,26 @@ function(Biomorph, Genes, handlers){
         return biomorph;  
     }
 
+    function bind_events(){
+        button.addEventListener("click", handlers.onButtonClick);
+        window.addEventListener("hashchange", handlers.onHashChange);
+        [].forEach.call(canvases, function(cnv){
+            cnv.addEventListener("click", handlers.onCanvasClick);
+        });
+    }
+
     return {
         init: function(){
-            button.addEventListener("click", handlers.onButtonClick);
-            window.addEventListener("hashchange", handlers.onHashChange);
-            [].forEach.call(canvases, function(cnv){
-                cnv.addEventListener("click", handlers.onCanvasClick);
-            });
+            try {
+                genes = new Genes.genes(from_hash());
+                bind_events();
+            }
+            catch (error){
+                document.querySelector("#main").innerHTML = "<h2>" + error + "</h2>";
+            }
         },
 
         run: function(){
-            /* console.log("Running "+ hash); */
             [].forEach.call(canvases, function(cnv){
                 create_biomorph(cnv).draw();
             });    

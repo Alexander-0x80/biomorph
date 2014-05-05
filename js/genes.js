@@ -6,14 +6,14 @@ define([], function(){
         5,  // branches
         70, // reduction
         90, // divergence
-        20, // linewidth
+        40, // linewidth
         90, // angle
         9,  // color
         9,  // color
     ];
 
-    function random(from, to) {
-        return from + Math.floor(Math.random() * (to - from));
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function Genes(genes_array){
@@ -40,8 +40,13 @@ define([], function(){
         var new_genes = this.genes_array;
 
         random_gene = random(1,maximum_values.length);
-        new_genes[random_gene] = random(1,maximum_values[random_gene]);
+        random_value = random(1,maximum_values[random_gene]);
+        while (this.genes_array[random_gene] === random_value){
+            /* Make sure we get new value */
+            random_value = random(1, maximum_values[random_gene]);
+        }
 
+        new_genes[random_gene] = random_value;
         return new_genes;
     }
 
@@ -50,13 +55,13 @@ define([], function(){
         array_to_string: function (arr){
             return arr.map(function(gene){
                 /* Valid ASCII range 31 - 127 */
-                return String.fromCharCode(gene + 31);
+                return String.fromCharCode(gene + 32);
             }).join("");
         },
         string_to_array: function(str){
             return str.split("").map(function(gene){
                 /* Valid ASCII range 31 - 127 */
-                return gene.charCodeAt() - 31;
+                return gene.charCodeAt() - 32;
             })
         }
     };

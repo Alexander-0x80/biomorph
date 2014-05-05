@@ -79,7 +79,7 @@ define([], function(){
             }
         }
 
-        this.context.strokeStyle = (this._level < this.genes.levels - 2)
+        this.context.strokeStyle = (this._level < this.genes.levels - 1)
             ? colors[this.genes.color1]
             : colors[this.genes.color2];
 
